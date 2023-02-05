@@ -1,38 +1,86 @@
 package Spring;
 
 import DepInj.Container;
-import DepInj.RegistryException;
-import Spring.Anotations.RequestMapping;
+import Spring.Anotations.*;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
-import org.mockito.Mockito;
-import org.mockito.stubbing.Answer;
 
+import java.io.File;
+import java.io.IOException;
+import java.lang.annotation.Annotation;
+import java.net.URL;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
+import java.util.Enumeration;
+import java.util.HashSet;
 import java.util.Set;
 
 class DepContainerLoader {
+    private static final String PACKAGE_PATH = "";
     Container container = Container.getContainer();
-    SqlSessionFactory fac;
 
-    public DepContainerLoader(SqlSessionFactory fac) {
-        this.fac = fac;
+    public static Set<Class<?>> getAnnotatedClasses(Class<? extends Annotation> annotation) throws ClassNotFoundException, IOException {
+        Set<Class<?>> annotatedClasses = new HashSet<>();
+
+        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+        Enumeration<URL> resources = classLoader.getResources(PACKAGE_PATH);
+
+        while (resources.hasMoreElements()) {
+            URL resource = resources.nextElement();
+            String filePath = URLDecoder.decode(resource.getFile(), StandardCharsets.UTF_8);
+            File folder = new File(filePath);
+
+            if (folder.isDirectory())
+                getAnnotatedClassesFromFolder(folder, PACKAGE_PATH, annotation, annotatedClasses, classLoader);
+        }
+        return annotatedClasses;
     }
 
-    public void loadMappers(Set<Class<?>> mappers) throws Exception {
-        for (Class<?> mapper : mappers) {
-            Object mock = Mockito.mock(mapper, (Answer<?>) invocationOnMock -> {
-                Object value;
-                try (SqlSession session = fac.openSession()) {
-                    value = session.getMapper(mapper);
-                }
-                return invocationOnMock.getMethod().invoke(value, invocationOnMock.getArguments());
-            });
-            container.registerInstance(mapper, mock);
+    private static void getAnnotatedClassesFromFolder(File folder, String packageName, Class<? extends Annotation> annotation, Set<Class<?>> annotatedClasses, ClassLoader classLoader) throws ClassNotFoundException {
+        for (File file : folder.listFiles()) {
+            if (file.isDirectory()) {
+                String packageToSearch = packageName.isEmpty() ? file.getName() : packageName + "." + file.getName();
+                getAnnotatedClassesFromFolder(file, packageToSearch, annotation, annotatedClasses, classLoader);
+                continue;
+            }
+
+            if (file.isFile() && file.getName().endsWith(".class")) {
+                String className = file.getName().substring(0, file.getName().length() - 6);
+                Class<?> clazz = classLoader.loadClass(packageName + "." + className);
+                if (clazz.isAnnotationPresent(annotation))
+                    annotatedClasses.add(clazz);
+            }
         }
     }
 
-    public void loadControllers(Set<Class<?>> controllers) throws Exception {
+    public void loadBeans() throws Exception {
+        Set<Class<?>> beans = getAnnotatedClasses(Bean.class);
+        for (Class<?> bean : beans) {
+            container.registerImplementation(bean);
+            Object instance = container.getInstance(bean);
+            container.registerInstance(bean, instance);
+        }
+    }
+
+    public void loadMappers(SqlSessionFactory fac) throws Exception {
+        Set<Class<?>> mappers = getAnnotatedClasses(Mapper.class);
+        Configuration configuration = fac.getConfiguration();
+        for (Class<?> mapper : mappers) {
+            configuration.addMapper(mapper);
+            try (SqlSession session = fac.openSession()) {
+                Object mapperInstance = session.getMapper(mapper);
+                container.registerNoInjectInstance(mapper, mapperInstance);
+            }
+        }
+    }
+
+    public void loadControllers() throws Exception {
+        Set<Class<?>> controllers = getAnnotatedClasses(Controller.class);
+        Set<Class<?>> restControllers = getAnnotatedClasses(RestController.class);
+        controllers.addAll(restControllers);
+
         for (Class<?> controller : controllers) {
             container.registerImplementation(controller);
             Object instance = container.getInstance(controller);
@@ -48,7 +96,8 @@ class DepContainerLoader {
         }
     }
 
-    public void loadComponents(Set<Class<?>> components) throws RegistryException {
+    public void loadComponents() throws Exception {
+        Set<Class<?>> components = getAnnotatedClasses(Component.class);
         for (Class<?> component : components) {
             container.registerImplementation(component);
         }

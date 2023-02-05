@@ -10,7 +10,6 @@ import java.lang.reflect.Parameter;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
-import java.util.Properties;
 
 @SuppressWarnings({"unchecked"})
 public class Container {
@@ -73,6 +72,10 @@ public class Container {
 
     public void registerInstance(Class c, Object instance) throws Exception {
         injectFieldsIntoInstance(instance, new HashSet<>());
+        instances.put(c.getName(), instance);
+    }
+
+    public void registerNoInjectInstance(Class c, Object instance) throws Exception {
         instances.put(c.getName(), instance);
     }
 
