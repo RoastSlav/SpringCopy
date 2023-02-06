@@ -4,14 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4c098ba1-35e7-4511-b324-67adb930ad86" name="Changes" comment="fixed some bugs and added more HTTP Methods support">
-      <change afterPath="$PROJECT_DIR$/src/main/java/Spring/HttpServletSpringResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Spring/ResponseSwapFilter.java" afterDir="false" />
+    <list default="true" id="4c098ba1-35e7-4511-b324-67adb930ad86" name="Changes" comment="Sends Json error messages now.">
+      <change afterPath="$PROJECT_DIR$/src/main/java/Spring/Anotations/ComponentScan.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Spring/Anotations/SpringBootApplication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/testingSecond/BtwController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Spring/DepContainerLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Spring/DepContainerLoader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Spring/DispatcherServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Spring/DispatcherServlet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Spring/SpringApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Spring/SpringApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/testing/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/testing/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,6 +70,9 @@
       <recent name="C:\Users\raiko\OneDrive\Infinno\Projects\SpringCopy\src\main\java\testing" />
       <recent name="C:\Users\Rostislav\OneDrive\Infinno\Projects\SpringCopy\src\main\java\DepInj" />
     </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="testingSecond" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application" nameIsGenerated="true">
@@ -94,7 +97,7 @@
       <workItem from="1675667109526" duration="2402000" />
       <workItem from="1675669869641" duration="3374000" />
       <workItem from="1675673770699" duration="4000" />
-      <workItem from="1675674200022" duration="5549000" />
+      <workItem from="1675674200022" duration="7134000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit">
       <created>1675357544247</created>
@@ -117,7 +120,14 @@
       <option name="project" value="LOCAL" />
       <updated>1675672603456</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Sends Json error messages now.">
+      <created>1675694764982</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1675694764982</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -127,7 +137,8 @@
     <MESSAGE value="initial commit" />
     <MESSAGE value="Finished DispatcherServlet and loading of beans" />
     <MESSAGE value="fixed some bugs and added more HTTP Methods support" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed some bugs and added more HTTP Methods support" />
+    <MESSAGE value="Sends Json error messages now." />
+    <option name="LAST_COMMIT_MESSAGE" value="Sends Json error messages now." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -136,11 +147,6 @@
           <url>file://$PROJECT_DIR$/src/main/java/DepInj/Container.java</url>
           <line>160</line>
           <option name="timeStamp" value="8" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/Spring/ResponseSwapFilter.java</url>
-          <line>14</line>
-          <option name="timeStamp" value="10" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
