@@ -2,16 +2,10 @@ package Spring;
 
 import org.apache.catalina.Context;
 import org.apache.catalina.startup.Tomcat;
-import org.apache.ibatis.io.Resources;
-import org.apache.ibatis.session.SqlSessionFactory;
-import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.apache.tomcat.util.descriptor.web.FilterDef;
 import org.apache.tomcat.util.descriptor.web.FilterMap;
 
 import java.io.File;
-import java.io.IOException;
-import java.io.Reader;
-import java.util.Properties;
 
 public class SpringApplication {
     public static void run(Class<?> postSpringApplicationClass, String[] args) throws Exception {

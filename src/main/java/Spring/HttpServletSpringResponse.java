@@ -6,7 +6,6 @@ import javax.servlet.http.HttpServletResponseWrapper;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalDateTime;
-import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class HttpServletSpringResponse extends HttpServletResponseWrapper {
@@ -23,7 +22,7 @@ public class HttpServletSpringResponse extends HttpServletResponseWrapper {
     public void sendError(int sc, String msg, HttpServletRequest request) throws IOException {
         String date = LocalDateTime.now().format(DateTimeFormatter.ISO_DATE_TIME);
         String responseBody = String.format("{\"timestamp\": \"%s\",\"status\": %d,\"error\": \"%s\",\"path\": \"%s\"}",
-                date , sc, msg, request.getRequestURI());
+                date, sc, msg, request.getRequestURI());
 
         PrintWriter writer = super.getWriter();
         super.setContentType("application/json");
