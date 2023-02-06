@@ -75,25 +75,36 @@ public class DispatcherServlet extends HttpServlet implements Servlet {
 
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        HttpServletSpringResponse springResponse = (HttpServletSpringResponse) resp;
         List<String> splitPath = splitPath(req.getPathInfo());
 
         String controllerMapping = splitPath.get(0);
         String methodPath = splitPath.size() == 1 ? "" : splitPath.get(1);
 
+        Object instance;
         try {
-            Object instance = container.getInstance(controllerMapping);
-            if (instance == null)
-                throw new RuntimeException("Controller not found");
-
-            Method method = getRequestMappingMethod(methodPath, req.getMethod(), instance);
-            if (method == null)
-                throw new RuntimeException("Method not found");
-
-            String methodName = method.getName();
-            Object invoke = instance.getClass().getMethod(methodName).invoke(instance);
-            resp.getWriter().write(gson.toJson(invoke));
+            instance = container.getInstance(controllerMapping);
         } catch (Exception e) {
-            throw new RuntimeException("There was an error trying to route the request: " + req.getPathInfo(), e);
+            springResponse.sendError(HttpServletResponse.SC_NOT_FOUND, "Not found", req);
+            return;
         }
+
+        Method method = getRequestMappingMethod(methodPath, req.getMethod(), instance);
+        if (method == null) {
+            springResponse.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED, "Method Not Allowed", req);
+            return;
+        }
+
+        String methodName = method.getName();
+        Object resultFromMethod;
+        try {
+            resultFromMethod = instance.getClass().getMethod(methodName).invoke(instance);
+        } catch (Exception e) {
+            springResponse.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Internal Server Error", req);
+            return;
+        }
+
+        resp.setContentType("application/json");
+        resp.getWriter().write(gson.toJson(resultFromMethod));
     }
 }

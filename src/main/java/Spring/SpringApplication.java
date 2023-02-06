@@ -5,6 +5,8 @@ import org.apache.catalina.startup.Tomcat;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import org.apache.tomcat.util.descriptor.web.FilterDef;
+import org.apache.tomcat.util.descriptor.web.FilterMap;
 
 import java.io.File;
 import java.io.IOException;
@@ -29,6 +31,7 @@ public class SpringApplication {
     }
 
     public static void run(Class<?> postSpringApplicationClass, String[] args) throws Exception {
+        //TODO: Scan only the passed class and its package
         DepContainerLoader depContainerLoader = new DepContainerLoader();
         depContainerLoader.loadMappers(sessionFactory);
         depContainerLoader.loadBeans();
@@ -50,6 +53,17 @@ public class SpringApplication {
 
         Tomcat.addServlet(context, "Dispatcher", new DispatcherServlet());
         context.addServletMappingDecoded("/*", "Dispatcher");
+
+        FilterDef filterDef = new FilterDef();
+        filterDef.setFilterName("ResponseSwapFilter");
+        filterDef.setFilterClass("Spring.ResponseSwapFilter");
+        context.addFilterDef(filterDef);
+
+        FilterMap filterMap = new FilterMap();
+        filterMap.addServletName("Dispatcher");
+        filterMap.addURLPattern("/*");
+        filterMap.setFilterName("ResponseSwapFilter");
+        context.addFilterMap(filterMap);
 
         return tomcat;
     }

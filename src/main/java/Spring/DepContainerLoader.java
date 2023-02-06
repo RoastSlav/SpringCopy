@@ -21,7 +21,7 @@ class DepContainerLoader {
     private static final String PACKAGE_PATH = "";
     Container container = Container.getContainer();
 
-    public static Set<Class<?>> getAnnotatedClasses(Class<? extends Annotation> annotation) throws ClassNotFoundException, IOException {
+    public Set<Class<?>> getAnnotatedClasses(Class<? extends Annotation> annotation) throws ClassNotFoundException, IOException {
         Set<Class<?>> annotatedClasses = new HashSet<>();
 
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
@@ -40,7 +40,7 @@ class DepContainerLoader {
         return annotatedClasses;
     }
 
-    private static Set<Class<?>> getAnnotatedClassesFromFolder(File folder, String packageName, Class<? extends Annotation> annotation) throws ClassNotFoundException {
+    private Set<Class<?>> getAnnotatedClassesFromFolder(File folder, String packageName, Class<? extends Annotation> annotation) throws ClassNotFoundException {
         Set<Class<?>> annotatedClasses = new HashSet<>();
         for (File file : folder.listFiles()) {
             if (file.isDirectory()) {
