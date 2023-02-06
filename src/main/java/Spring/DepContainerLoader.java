@@ -32,27 +32,33 @@ class DepContainerLoader {
             String filePath = URLDecoder.decode(resource.getFile(), StandardCharsets.UTF_8);
             File folder = new File(filePath);
 
-            if (folder.isDirectory())
-                getAnnotatedClassesFromFolder(folder, PACKAGE_PATH, annotation, annotatedClasses, classLoader);
+            if (folder.isDirectory()) {
+                Set<Class<?>> annotatedClassesFromFolder = getAnnotatedClassesFromFolder(folder, PACKAGE_PATH, annotation);
+                annotatedClasses.addAll(annotatedClassesFromFolder);
+            }
         }
         return annotatedClasses;
     }
 
-    private static void getAnnotatedClassesFromFolder(File folder, String packageName, Class<? extends Annotation> annotation, Set<Class<?>> annotatedClasses, ClassLoader classLoader) throws ClassNotFoundException {
+    private static Set<Class<?>> getAnnotatedClassesFromFolder(File folder, String packageName, Class<? extends Annotation> annotation) throws ClassNotFoundException {
+        Set<Class<?>> annotatedClasses = new HashSet<>();
         for (File file : folder.listFiles()) {
             if (file.isDirectory()) {
                 String packageToSearch = packageName.isEmpty() ? file.getName() : packageName + "." + file.getName();
-                getAnnotatedClassesFromFolder(file, packageToSearch, annotation, annotatedClasses, classLoader);
+                Set<Class<?>> annotatedClassesFromFolder = getAnnotatedClassesFromFolder(file, packageToSearch, annotation);
+                annotatedClasses.addAll(annotatedClassesFromFolder);
                 continue;
             }
 
             if (file.isFile() && file.getName().endsWith(".class")) {
+                ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
                 String className = file.getName().substring(0, file.getName().length() - 6);
                 Class<?> clazz = classLoader.loadClass(packageName + "." + className);
                 if (clazz.isAnnotationPresent(annotation))
                     annotatedClasses.add(clazz);
             }
         }
+        return annotatedClasses;
     }
 
     public void loadBeans() throws Exception {

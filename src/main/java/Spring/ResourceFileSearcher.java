@@ -9,7 +9,6 @@ import java.util.Properties;
 
 public class ResourceFileSearcher {
     private static final String SPROPERTIES_FILE_NAME = "sproperties.properties";
-    private static final String RESOURCE_FOLDER_NAME = "resources";
 
     public static Properties getPropertiesFile() throws IOException {
         URL resource = ResourceFileSearcher.class.getClassLoader().getResource("");

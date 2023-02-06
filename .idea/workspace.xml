@@ -4,25 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4c098ba1-35e7-4511-b324-67adb930ad86" name="Changes" comment="initial commit">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Spring/Anotations/Bean.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Spring/Anotations/GetMapping.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Spring/Anotations/PostMapping.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Spring/ResourceFileSearcher.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Test/DrugoMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Test/Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Test/NeshtoController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/sproperties.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="4c098ba1-35e7-4511-b324-67adb930ad86" name="Changes" comment="Finished DispatcherServlet and loading of beans">
+      <change afterPath="$PROJECT_DIR$/src/main/java/Spring/Anotations/Configuration.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Spring/Anotations/DeleteMapping.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Spring/Anotations/PutMapping.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/testing/DrugoMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/testing/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/testing/NeshtoController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/DepInj/Container.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DepInj/Container.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DepInj/Default.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DepInj/Default.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DepInj/Inject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DepInj/Inject.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DepInj/Named.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DepInj/Named.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DepInj/Inject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DepInj/Autowired.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Spring/DepContainerLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Spring/DepContainerLoader.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Spring/DispatcherServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Spring/DispatcherServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Spring/ResourceFileSearcher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Spring/ResourceFileSearcher.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Spring/SpringApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Spring/SpringApplication.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/mybatis-config.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mybatis-config.xml" afterDir="false" />
     </list>
@@ -65,26 +60,28 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/raiko/OneDrive/Infinno/Projects/EmbeddedTomcat",
+    "last_opened_file_path": "C:/Users/raiko/OneDrive/Infinno/Projects/SpringCopy/src/main/java/testing",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
     "project.structure.last.edited": "Libraries",
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "preferences.lookFeel",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\raiko\OneDrive\Infinno\Projects\SpringCopy\src\main\java\testing" />
       <recent name="C:\Users\Rostislav\OneDrive\Infinno\Projects\SpringCopy\src\main\java\DepInj" />
     </key>
   </component>
   <component name="RunManager">
-    <configuration name="Unnamed" type="Application" factoryName="Application" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Test.Main" />
+    <configuration name="Main" type="Application" factoryName="Application" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="testing.Main" />
       <module name="SpringCopy" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -101,7 +98,9 @@
       <updated>1675348178533</updated>
       <workItem from="1675348179755" duration="8835000" />
       <workItem from="1675494029751" duration="841000" />
-      <workItem from="1675630607661" duration="7148000" />
+      <workItem from="1675630607661" duration="7539000" />
+      <workItem from="1675667109526" duration="2402000" />
+      <workItem from="1675669869641" duration="2621000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit">
       <created>1675357544247</created>
@@ -110,7 +109,14 @@
       <option name="project" value="LOCAL" />
       <updated>1675357544247</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Finished DispatcherServlet and loading of beans">
+      <created>1675638008065</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1675638008065</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -118,7 +124,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="initial commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="initial commit" />
+    <MESSAGE value="Finished DispatcherServlet and loading of beans" />
+    <option name="LAST_COMMIT_MESSAGE" value="Finished DispatcherServlet and loading of beans" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -127,11 +134,6 @@
           <url>file://$PROJECT_DIR$/src/main/java/DepInj/Container.java</url>
           <line>160</line>
           <option name="timeStamp" value="8" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/Spring/DispatcherServlet.java</url>
-          <line>50</line>
-          <option name="timeStamp" value="17" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

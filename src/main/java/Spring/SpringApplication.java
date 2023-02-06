@@ -43,12 +43,12 @@ public class SpringApplication {
     private static Tomcat setupTomcat() {
         Tomcat tomcat = new Tomcat();
         tomcat.setPort(8080);
-        String contextPath = "/";
+        String contextPath = "";
         String docBase = new File(".").getAbsolutePath();
 
         Context context = tomcat.addContext(contextPath, docBase);
 
-        tomcat.addServlet(context, "Dispatcher", new DispatcherServlet());
+        Tomcat.addServlet(context, "Dispatcher", new DispatcherServlet());
         context.addServletMappingDecoded("/*", "Dispatcher");
 
         return tomcat;

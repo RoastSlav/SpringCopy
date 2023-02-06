@@ -98,7 +98,7 @@ public class Container {
 
         Constructor<?>[] declaredConstructors = c.getDeclaredConstructors();
         for (Constructor<?> declaredConstructor : declaredConstructors) {
-            if (!declaredConstructor.isAnnotationPresent(Inject.class))
+            if (!declaredConstructor.isAnnotationPresent(Autowired.class))
                 continue;
 
             if (constructor != null)
@@ -188,7 +188,7 @@ public class Container {
 
             visited.add(instance.getClass());
 
-            if (!field.isAnnotationPresent(Inject.class))
+            if (!field.isAnnotationPresent(Autowired.class))
                 continue;
 
             field.setAccessible(true);
