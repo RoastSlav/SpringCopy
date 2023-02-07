@@ -1,8 +1,9 @@
-package DepInj;
+package Spring.Anotations;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Lazy {
+public @interface Autowired {
+
 }

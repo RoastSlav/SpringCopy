@@ -1,6 +1,5 @@
 package Spring;
 
-import DepInj.Container;
 import Spring.Anotations.*;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.io.Resources;
@@ -8,11 +7,15 @@ import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import org.mockito.Mockito;
+import org.mockito.invocation.InvocationOnMock;
+import org.mockito.stubbing.Answer;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.Reader;
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Field;
 import java.net.URL;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
@@ -20,29 +23,28 @@ import java.util.*;
 
 class DepContainerLoader {
     private final List<String> packagesToBeScanned = new ArrayList<>();
-    Container container = Container.getContainer();
+    ApplicationContext context;
 
-    public DepContainerLoader(Class<?> mainClass) {
+    public DepContainerLoader(Class<?> mainClass, ApplicationContext context) {
+        this.context = context;
+        getPackagesToLoad(mainClass);
+        packagesToBeScanned.add(0, mainClass.getPackageName());
+    }
+
+    private void getPackagesToLoad(Class<?> mainClass) {
         if (mainClass.isAnnotationPresent(ComponentScan.class)) {
             ComponentScan componentScan = mainClass.getAnnotation(ComponentScan.class);
             packagesToBeScanned.addAll(Arrays.stream(componentScan.value()).toList());
         }
-        packagesToBeScanned.add(0, mainClass.getPackageName());
     }
 
     public void loadDependencies() throws Exception {
-        SqlSessionFactory sqlSessionFactory = getSqlSessionFactory();
-        for (String packageToScan : packagesToBeScanned)
-            loadMappers(sqlSessionFactory, packageToScan);
-
-        for (String packageToScan : packagesToBeScanned)
-            loadBeans(packageToScan);
-
-        for (String packageToScan : packagesToBeScanned)
+        for (String packageToScan : packagesToBeScanned) {
+            loadMappers(packageToScan);
+            loadConfigurations(packageToScan);
             loadComponents(packageToScan);
-
-        for (String packageToScan : packagesToBeScanned)
             loadControllers(packageToScan);
+        }
     }
 
     private SqlSessionFactory getSqlSessionFactory() throws IOException {
@@ -94,24 +96,34 @@ class DepContainerLoader {
         return annotatedClasses;
     }
 
-    private void loadBeans(String packageToScan) throws Exception {
-        Set<Class<?>> beans = getAnnotatedClasses(Bean.class, packageToScan);
-        for (Class<?> bean : beans) {
-            container.registerImplementation(bean);
-            Object instance = container.getInstance(bean);
-            container.registerInstance(bean, instance);
+    private void loadConfigurations(String packageToScan) throws Exception {
+        Set<Class<?>> configurations = getAnnotatedClasses(Spring.Anotations.Configuration.class, packageToScan);
+        for (Class<?> config : configurations) {
+            getPackagesToLoad(config);
+            Field[] declaredFields = config.getDeclaredFields();
+            for (Field field : declaredFields) {
+                if (field.isAnnotationPresent(Bean.class)) {
+                    //TODO: lazy loading.
+                    Object instance = context.beanCreator.getInstance(field.getType());
+                    context.registerBean(field.getType(), instance);
+                }
+            }
         }
     }
 
-    private void loadMappers(SqlSessionFactory fac, String packageToScan) throws Exception {
+    private void loadMappers(String packageToScan) throws Exception {
+        SqlSessionFactory fac = getSqlSessionFactory();
         Set<Class<?>> mappers = getAnnotatedClasses(Mapper.class, packageToScan);
         Configuration configuration = fac.getConfiguration();
         for (Class<?> mapper : mappers) {
             configuration.addMapper(mapper);
-            try (SqlSession session = fac.openSession()) {
-                Object mapperInstance = session.getMapper(mapper);
-                container.registerNoInjectInstance(mapper, mapperInstance);
-            }
+            Object mock = Mockito.mock(mapper, (Answer<?>) invocation -> {
+                try (SqlSession session = fac.openSession()) {
+                    Object mapperInstance = session.getMapper(mapper);
+                    return invocation.getMethod().invoke(mapperInstance, invocation.getArguments());
+                }
+            });
+            context.registerBean(mapper, mock);
         }
     }
 
@@ -119,26 +131,21 @@ class DepContainerLoader {
         Set<Class<?>> controllers = getAnnotatedClasses(Controller.class, packageToScan);
         Set<Class<?>> restControllers = getAnnotatedClasses(RestController.class, packageToScan);
         controllers.addAll(restControllers);
-
         for (Class<?> controller : controllers) {
-            container.registerImplementation(controller);
-            Object instance = container.getInstance(controller);
-            if (controller.isAnnotationPresent(RequestMapping.class)) {
-                String value = controller.getAnnotation(RequestMapping.class).value();
-                if (value == null)
-                    value = "";
-
-                container.registerInstance(value, instance);
-                return;
-            }
-            container.registerInstance(controller, instance);
+            getPackagesToLoad(controller);
+            context.registerImplementation(controller);
+            Object instance = context.beanCreator.getInstance(controller);
+            context.registerBean(controller, instance);
         }
+        ControllerManager conManager = context.getBean(ControllerManager.class.getName(), ControllerManager.class);
+        conManager.loadControllers(controllers);
     }
 
     private void loadComponents(String packageToScan) throws Exception {
         Set<Class<?>> components = getAnnotatedClasses(Component.class, packageToScan);
         for (Class<?> component : components) {
-            container.registerImplementation(component);
+            getPackagesToLoad(component);
+            context.registerImplementation(component);
         }
     }
 }

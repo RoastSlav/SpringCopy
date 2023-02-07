@@ -1,15 +1,23 @@
 package Spring;
 
+import Spring.Exceptions.BeansException;
+import Spring.Exceptions.NoSuchBeanDefinitionException;
+import Spring.Web.DispatcherServlet;
 import org.apache.catalina.Context;
 import org.apache.catalina.startup.Tomcat;
 import org.apache.tomcat.util.descriptor.web.FilterDef;
 import org.apache.tomcat.util.descriptor.web.FilterMap;
 
+import javax.servlet.Servlet;
 import java.io.File;
 
 public class SpringApplication {
+    public final static ApplicationContext applicationContext = new ApplicationContext();
     public static void run(Class<?> postSpringApplicationClass, String[] args) throws Exception {
-        DepContainerLoader depContainerLoader = new DepContainerLoader(postSpringApplicationClass);
+        DispatcherServlet instance = applicationContext.beanCreator.getInstance(DispatcherServlet.class);
+        applicationContext.registerBean(DispatcherServlet.class, instance);
+
+        DepContainerLoader depContainerLoader = new DepContainerLoader(postSpringApplicationClass, applicationContext);
         depContainerLoader.loadDependencies();
 
         Tomcat tomcat = setupTomcat();
@@ -17,7 +25,11 @@ public class SpringApplication {
         tomcat.getServer().await();
     }
 
-    private static Tomcat setupTomcat() {
+    protected ApplicationContext getApplicationContext() {
+        return applicationContext;
+    }
+
+    private static Tomcat setupTomcat() throws NoSuchBeanDefinitionException, BeansException {
         Tomcat tomcat = new Tomcat();
         tomcat.setPort(8080);
         String contextPath = "";
@@ -25,12 +37,13 @@ public class SpringApplication {
 
         Context context = tomcat.addContext(contextPath, docBase);
 
-        Tomcat.addServlet(context, "Dispatcher", new DispatcherServlet());
+        Servlet dispatcherServlet = (Servlet) applicationContext.getBean(DispatcherServlet.class);
+        Tomcat.addServlet(context, "Dispatcher", dispatcherServlet);
         context.addServletMappingDecoded("/*", "Dispatcher");
 
         FilterDef filterDef = new FilterDef();
         filterDef.setFilterName("ResponseSwapFilter");
-        filterDef.setFilterClass("Spring.ResponseSwapFilter");
+        filterDef.setFilterClass("Spring.Web.ResponseSwapFilter");
         context.addFilterDef(filterDef);
 
         FilterMap filterMap = new FilterMap();

@@ -4,14 +4,29 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4c098ba1-35e7-4511-b324-67adb930ad86" name="Changes" comment="Sends Json error messages now.">
-      <change afterPath="$PROJECT_DIR$/src/main/java/Spring/Anotations/ComponentScan.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Spring/Anotations/SpringBootApplication.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/testingSecond/BtwController.java" afterDir="false" />
+    <list default="true" id="4c098ba1-35e7-4511-b324-67adb930ad86" name="Changes" comment="reformatting">
+      <change afterPath="$PROJECT_DIR$/src/main/java/Spring/ApplicationContext.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Spring/ControllerManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Spring/ControllerRegistration.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Spring/Exceptions/BeansException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Spring/Exceptions/NoSuchBeanDefinitionException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Spring/Exceptions/NoUniqueBeanDefinitionException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Spring/ObjectProvider.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DepInj/Autowired.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Spring/Anotations/Autowired.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DepInj/Container.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Spring/BeanCreator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DepInj/Default.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Spring/Anotations/Default.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DepInj/Initializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Spring/Anotations/Initializer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DepInj/Lazy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Spring/Anotations/Lazy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DepInj/Named.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Spring/Anotations/Named.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DepInj/RegistryException.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Spring/DepContainerLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Spring/DepContainerLoader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Spring/DispatcherServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Spring/Web/DispatcherServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Spring/HttpServletSpringResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Spring/Web/HttpServletSpringResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Spring/ResponseSwapFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Spring/Web/ResponseSwapFilter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Spring/SpringApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Spring/SpringApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/testing/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/testing/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/testing/NeshtoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/testing/NeshtoController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/testingSecond/BtwController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/testingSecond/BtwController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,6 +43,19 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="e02cbf44-9d63-4b56-869f-980dfde69218" />
+        <option name="url" value="https://github.com/RoastSlav/SpringCopy.git" />
+      </UrlAndAccount>
+    </option>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -66,6 +94,9 @@
   }
 }</component>
   <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="Spring" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\raiko\OneDrive\Infinno\Projects\SpringCopy\src\main\java\testing" />
       <recent name="C:\Users\Rostislav\OneDrive\Infinno\Projects\SpringCopy\src\main\java\DepInj" />
@@ -97,7 +128,9 @@
       <workItem from="1675667109526" duration="2402000" />
       <workItem from="1675669869641" duration="3374000" />
       <workItem from="1675673770699" duration="4000" />
-      <workItem from="1675674200022" duration="7134000" />
+      <workItem from="1675674200022" duration="8608000" />
+      <workItem from="1675753907407" duration="9129000" />
+      <workItem from="1675777859800" duration="9379000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit">
       <created>1675357544247</created>
@@ -127,7 +160,21 @@
       <option name="project" value="LOCAL" />
       <updated>1675694764982</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Added ComponentScan annotation and functionality">
+      <created>1675696503495</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1675696503495</updated>
+    </task>
+    <task id="LOCAL-00006" summary="reformatting">
+      <created>1675696542817</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1675696542817</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -138,17 +185,8 @@
     <MESSAGE value="Finished DispatcherServlet and loading of beans" />
     <MESSAGE value="fixed some bugs and added more HTTP Methods support" />
     <MESSAGE value="Sends Json error messages now." />
-    <option name="LAST_COMMIT_MESSAGE" value="Sends Json error messages now." />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/DepInj/Container.java</url>
-          <line>160</line>
-          <option name="timeStamp" value="8" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="Added ComponentScan annotation and functionality" />
+    <MESSAGE value="reformatting" />
+    <option name="LAST_COMMIT_MESSAGE" value="reformatting" />
   </component>
 </project>

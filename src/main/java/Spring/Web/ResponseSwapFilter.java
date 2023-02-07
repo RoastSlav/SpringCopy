@@ -1,4 +1,4 @@
-package Spring;
+package Spring.Web;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletResponse;

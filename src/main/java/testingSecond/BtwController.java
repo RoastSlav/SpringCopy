@@ -1,6 +1,6 @@
 package testingSecond;
 
-import DepInj.Autowired;
+import Spring.Anotations.Autowired;
 import Spring.Anotations.GetMapping;
 import Spring.Anotations.RequestMapping;
 import Spring.Anotations.RestController;
