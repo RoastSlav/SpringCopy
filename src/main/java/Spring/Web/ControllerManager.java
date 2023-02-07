@@ -1,8 +1,8 @@
-package Spring;
+package Spring.Web;
 
 import Spring.Anotations.*;
-import Spring.Exceptions.BeansException;
-import Spring.Exceptions.NoSuchBeanDefinitionException;
+import Spring.BeanCreator;
+import Spring.SpringApplication;
 
 import java.lang.reflect.Method;
 import java.util.HashMap;
@@ -11,7 +11,7 @@ import java.util.Set;
 
 public class ControllerManager {
     private final Map<String, ControllerRegistration> mappings = new HashMap<>();
-    private final BeanCreator beanCreator = SpringApplication.applicationContext.beanCreator;
+    private final BeanCreator beanCreator = SpringApplication.applicationContext.getBeanCreator();
 
     protected void loadControllers(Set<Class<?>> controllers) {
         for (Class<?> controller : controllers) {
