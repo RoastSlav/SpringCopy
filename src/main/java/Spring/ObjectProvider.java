@@ -2,8 +2,6 @@ package Spring;
 
 import Spring.Exceptions.BeansException;
 import Spring.Exceptions.NoSuchBeanDefinitionException;
-import org.mockito.Mockito;
-import org.mockito.stubbing.Answer;
 
 public class ObjectProvider<T> {
     private Class<T> type;

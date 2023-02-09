@@ -1,6 +1,5 @@
 package Spring;
 
-import Spring.Anotations.Bean;
 import Spring.Exceptions.BeansException;
 import Spring.Exceptions.NoSuchBeanDefinitionException;
 
@@ -15,9 +14,9 @@ public class ApplicationContext {
     protected final Map<String, Object> singletons = new HashMap<>();
     protected final Map<Class<?>, Class<?>> implementations = new HashMap<>();
     protected final Map<String, ObjectProvider<?>> prototypes = new HashMap<>();
+    protected final BeanCreator beanCreator = new BeanCreator(this);
     private final LocalDate localDate = LocalDate.now();
     private String ApplicationName;
-    protected final BeanCreator beanCreator = new BeanCreator(this);
 
     public BeanCreator getBeanCreator() {
         return beanCreator;

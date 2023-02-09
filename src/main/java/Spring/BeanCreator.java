@@ -35,7 +35,7 @@ public class BeanCreator {
         return instance;
     }
 
-    public  <T> T getInstance(Class<T> type) throws NoSuchBeanDefinitionException, BeansException {
+    public <T> T getInstance(Class<T> type) throws NoSuchBeanDefinitionException, BeansException {
         return getInstance(type, new HashSet<>());
     }
 

@@ -16,6 +16,13 @@ public class ControllerRegistration {
     protected Map<String, Method> putMappings = new HashMap<>();
     protected Map<String, Method> deleteMappings = new HashMap<>();
 
+    private static boolean match(String input, String pattern) {
+        pattern = pattern.replaceAll("#\\{\\w+}", "\\\\w+");
+        Pattern p = Pattern.compile(pattern);
+        Matcher m = p.matcher(input);
+        return m.matches();
+    }
+
     public String getPath() {
         return path;
     }
@@ -55,12 +62,5 @@ public class ControllerRegistration {
             }
         }
         return null;
-    }
-
-    private static boolean match(String input, String pattern) {
-        pattern = pattern.replaceAll("#\\{\\w+}", "\\\\w+");
-        Pattern p = Pattern.compile(pattern);
-        Matcher m = p.matcher(input);
-        return m.matches();
     }
 }

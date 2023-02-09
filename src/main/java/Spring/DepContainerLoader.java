@@ -8,8 +8,6 @@ import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
-import org.mockito.Mockito;
-import org.mockito.stubbing.Answer;
 
 import java.io.File;
 import java.io.IOException;

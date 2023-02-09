@@ -13,6 +13,7 @@ import java.io.File;
 
 public class SpringApplication {
     public final static ApplicationContext applicationContext = new ApplicationContext();
+
     public static void run(Class<?> postSpringApplicationClass, String[] args) throws Exception {
         DispatcherServlet instance = applicationContext.beanCreator.getInstance(DispatcherServlet.class);
         applicationContext.registerBean(DispatcherServlet.class, instance);
@@ -25,10 +26,6 @@ public class SpringApplication {
 
         tomcat.start();
         tomcat.getServer().await();
-    }
-
-    protected ApplicationContext getApplicationContext() {
-        return applicationContext;
     }
 
     private static Tomcat setupTomcat() throws NoSuchBeanDefinitionException, BeansException {
@@ -55,5 +52,9 @@ public class SpringApplication {
         context.addFilterMap(filterMap);
 
         return tomcat;
+    }
+
+    protected ApplicationContext getApplicationContext() {
+        return applicationContext;
     }
 }
