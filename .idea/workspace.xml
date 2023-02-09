@@ -4,16 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4c098ba1-35e7-4511-b324-67adb930ad86" name="Changes" comment="Remade the dependency injection container to be more like the real Spring.&#10;Also moved the controller control into its own class.">
-      <change afterPath="$PROJECT_DIR$/src/main/java/Spring/Anotations/PathVariable.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Spring/Anotations/RequestBody.java" afterDir="false" />
+    <list default="true" id="4c098ba1-35e7-4511-b324-67adb930ad86" name="Changes" comment="Added @PathVariable and @RequestBody functionality">
+      <change afterPath="$PROJECT_DIR$/src/main/java/testing/Post.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Spring/BeanCreator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Spring/BeanCreator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Spring/DepContainerLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Spring/DepContainerLoader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Spring/SpringApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Spring/SpringApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Spring/Web/ControllerManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Spring/Web/ControllerManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Spring/Web/ControllerRegistration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Spring/Web/ControllerRegistration.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Spring/Web/DispatcherServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Spring/Web/DispatcherServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/testing/DrugoMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/testing/DrugoMapper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/testing/NeshtoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/testing/NeshtoController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -90,6 +86,7 @@
       <recent name="C:\Users\Rostislav\OneDrive\Infinno\Projects\SpringCopy\src\main\java\DepInj" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="testing" />
       <recent name="testingSecond" />
     </key>
   </component>
@@ -120,7 +117,7 @@
       <workItem from="1675753907407" duration="9129000" />
       <workItem from="1675777859800" duration="11350000" />
       <workItem from="1675840632701" duration="5368000" />
-      <workItem from="1675865470720" duration="9106000" />
+      <workItem from="1675865470720" duration="10655000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit">
       <created>1675357544247</created>
@@ -185,7 +182,21 @@
       <option name="project" value="LOCAL" />
       <updated>1675802693994</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Added @PathVariable and @RequestBody functionality">
+      <created>1675929998454</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1675929998454</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Added @PathVariable and @RequestBody functionality">
+      <created>1675930121175</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1675930121175</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -201,7 +212,8 @@
     <MESSAGE value="Moved the controller classes to a more appropriate package" />
     <MESSAGE value="Remade the dependency injection container to be more like the real Spring.&#10;Also moved the controller control into its own class. Also now the mappers&#10;are thread safe." />
     <MESSAGE value="Remade the dependency injection container to be more like the real Spring.&#10;Also moved the controller control into its own class." />
-    <option name="LAST_COMMIT_MESSAGE" value="Remade the dependency injection container to be more like the real Spring.&#10;Also moved the controller control into its own class." />
+    <MESSAGE value="Added @PathVariable and @RequestBody functionality" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added @PathVariable and @RequestBody functionality" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -213,18 +225,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/Spring/Web/DispatcherServlet.java</url>
-          <line>89</line>
-          <option name="timeStamp" value="11" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/Spring/Web/DispatcherServlet.java</url>
-          <line>110</line>
+          <line>168</line>
           <option name="timeStamp" value="12" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/Spring/Web/DispatcherServlet.java</url>
-          <line>163</line>
-          <option name="timeStamp" value="13" />
+          <url>file://$PROJECT_DIR$/src/main/java/testing/NeshtoController.java</url>
+          <line>13</line>
+          <option name="timeStamp" value="14" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

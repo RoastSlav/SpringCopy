@@ -8,12 +8,16 @@ import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import org.mockito.invocation.Invocation;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.Reader;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
 import java.net.URL;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
@@ -115,16 +119,34 @@ class DepContainerLoader {
         }
     }
 
+    private static class MapperInvocationHandler implements InvocationHandler {
+        private final SqlSessionFactory fac;
+        private final Class<?> mapper;
+
+        public MapperInvocationHandler(SqlSessionFactory fac, Class<?> mapper) {
+            this.fac = fac;
+            this.mapper = mapper;
+        }
+
+        @Override
+        public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+            try (SqlSession session = fac.openSession()) {
+                Object mapperInstance = session.getMapper(mapper);
+                return method.invoke(mapperInstance, args);
+            }
+        }
+    }
+
     private void loadMappers(String packageToScan) throws Exception {
         SqlSessionFactory fac = getSqlSessionFactory();
         Set<Class<?>> mappers = getAnnotatedClasses(Mapper.class, packageToScan);
         Configuration configuration = fac.getConfiguration();
         for (Class<?> mapper : mappers) {
             configuration.addMapper(mapper);
-            try (SqlSession session = fac.openSession()) {
-                Object mapperInstance = session.getMapper(mapper);
-                context.registerBean(mapper, mapperInstance);
-            }
+            Object mapperProxy = Proxy.newProxyInstance(Mapper.class.getClassLoader(),
+                                                    new Class[]{mapper},
+                                                    new MapperInvocationHandler(fac, mapper));
+            context.registerBean(mapper, mapperProxy);
         }
     }
 

@@ -10,9 +10,8 @@ public class NeshtoController {
 
 
     @GetMapping("/get")
-    public String doSomething() {
-        mapper.doSomething();
-        return "Hello";
+    public Post[] doSomething() {
+        return mapper.doSomething();
     }
 
     @PostMapping("/post/#{someone}")

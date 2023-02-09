@@ -1,7 +1,9 @@
 package Spring.Web;
 
-import Spring.*;
 import Spring.Anotations.*;
+import Spring.ApplicationContext;
+import Spring.BeanCreator;
+import Spring.SpringApplication;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -11,14 +13,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.lang.annotation.Annotation;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -37,12 +35,9 @@ public class DispatcherServlet extends HttpServlet implements Servlet {
             context.registerBean(ControllerManager.class.getName(), instance);
             conManager = (ControllerManager) context.getBean(ControllerManager.class);
         } catch (Exception e) {
-            throw new ServletException("Could not load the ControllerManager",e);
+            throw new ServletException("Could not load the ControllerManager", e);
         }
     }
-
-    //TODO: Add @PathVariable support. It should be able to get the path variables from the request and pass them to the method.
-    //TODO: Add @RequestBody support. It should be able to get the body of the request and pass it to the method.
 
     private List<String> splitPath(String path) {
         List<String> result = new ArrayList<>();
