@@ -3,6 +3,8 @@ package Spring.Web;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class ControllerRegistration {
     protected Object instance;
@@ -31,18 +33,34 @@ public class ControllerRegistration {
     }
 
     public Method getGetMethod(String path) {
-        return getMappings.get(path);
+        return getMethod(path, getMappings);
     }
 
     public Method getPostMethod(String path) {
-        return postMappings.get(path);
+        return getMethod(path, postMappings);
     }
 
     public Method getPutMethod(String path) {
-        return putMappings.get(path);
+        return getMethod(path, putMappings);
     }
 
     public Method getDeleteMethod(String path) {
-        return deleteMappings.get(path);
+        return getMethod(path, deleteMappings);
+    }
+
+    private Method getMethod(String path, Map<String, Method> map) {
+        for (String key : map.keySet()) {
+            if (match(path, key)) {
+                return map.get(key);
+            }
+        }
+        return null;
+    }
+
+    private static boolean match(String input, String pattern) {
+        pattern = pattern.replaceAll("#\\{\\w+}", "\\\\w+");
+        Pattern p = Pattern.compile(pattern);
+        Matcher m = p.matcher(input);
+        return m.matches();
     }
 }

@@ -16,11 +16,13 @@ public class SpringApplication {
     public static void run(Class<?> postSpringApplicationClass, String[] args) throws Exception {
         DispatcherServlet instance = applicationContext.beanCreator.getInstance(DispatcherServlet.class);
         applicationContext.registerBean(DispatcherServlet.class, instance);
+        instance.init();
+
+        Tomcat tomcat = setupTomcat();
 
         DepContainerLoader depContainerLoader = new DepContainerLoader(postSpringApplicationClass, applicationContext);
         depContainerLoader.loadDependencies();
 
-        Tomcat tomcat = setupTomcat();
         tomcat.start();
         tomcat.getServer().await();
     }

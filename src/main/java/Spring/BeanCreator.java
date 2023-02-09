@@ -150,7 +150,7 @@ public class BeanCreator {
 
     private void injectFieldsIntoInstance(Object instance, HashSet<Class<?>> visited) throws NoSuchBeanDefinitionException, BeansException {
         for (Field field : instance.getClass().getDeclaredFields()) {
-            if (visited.contains(instance.getClass())) {
+            if (field.isAnnotationPresent(Autowired.class) && visited.contains(instance.getClass())) {
                 setLazyObject(instance, field);
                 continue;
             }

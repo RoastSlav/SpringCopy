@@ -4,29 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4c098ba1-35e7-4511-b324-67adb930ad86" name="Changes" comment="reformatting">
-      <change afterPath="$PROJECT_DIR$/src/main/java/Spring/ApplicationContext.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Spring/ControllerManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Spring/ControllerRegistration.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Spring/Exceptions/BeansException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Spring/Exceptions/NoSuchBeanDefinitionException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Spring/Exceptions/NoUniqueBeanDefinitionException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Spring/ObjectProvider.java" afterDir="false" />
+    <list default="true" id="4c098ba1-35e7-4511-b324-67adb930ad86" name="Changes" comment="Remade the dependency injection container to be more like the real Spring.&#10;Also moved the controller control into its own class.">
+      <change afterPath="$PROJECT_DIR$/src/main/java/Spring/Anotations/PathVariable.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Spring/Anotations/RequestBody.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DepInj/Autowired.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Spring/Anotations/Autowired.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DepInj/Container.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Spring/BeanCreator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DepInj/Default.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Spring/Anotations/Default.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DepInj/Initializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Spring/Anotations/Initializer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DepInj/Lazy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Spring/Anotations/Lazy.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DepInj/Named.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Spring/Anotations/Named.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DepInj/RegistryException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Spring/BeanCreator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Spring/BeanCreator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Spring/DepContainerLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Spring/DepContainerLoader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Spring/DispatcherServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Spring/Web/DispatcherServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Spring/HttpServletSpringResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Spring/Web/HttpServletSpringResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Spring/ResponseSwapFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Spring/Web/ResponseSwapFilter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Spring/SpringApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Spring/SpringApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Spring/Web/ControllerManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Spring/Web/ControllerManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Spring/Web/ControllerRegistration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Spring/Web/ControllerRegistration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Spring/Web/DispatcherServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Spring/Web/DispatcherServlet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/testing/NeshtoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/testing/NeshtoController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/testingSecond/BtwController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/testingSecond/BtwController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,8 +24,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Interface" />
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -73,26 +61,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/raiko/OneDrive/Infinno/Projects/SpringCopy/src/main/java/testing&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/Users/raiko/OneDrive/Infinno/Projects/SpringCopy/src/main/java/testing",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "reference.settingsdialog.IDE.editor.colors.Java",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="Spring" />
@@ -130,7 +118,9 @@
       <workItem from="1675673770699" duration="4000" />
       <workItem from="1675674200022" duration="8608000" />
       <workItem from="1675753907407" duration="9129000" />
-      <workItem from="1675777859800" duration="9379000" />
+      <workItem from="1675777859800" duration="11350000" />
+      <workItem from="1675840632701" duration="5368000" />
+      <workItem from="1675865470720" duration="9106000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit">
       <created>1675357544247</created>
@@ -174,7 +164,28 @@
       <option name="project" value="LOCAL" />
       <updated>1675696542817</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Remade the dependency injection container to be more like the real Spring.&#10;Also moved the controller control into its own class.">
+      <created>1675802051524</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1675802051524</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Moved the controller classes to a more appropriate package">
+      <created>1675802193009</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1675802193009</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Remade the dependency injection container to be more like the real Spring.&#10;Also moved the controller control into its own class. Also now the mappers&#10;are thread safe.">
+      <created>1675802693994</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1675802693994</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -187,6 +198,35 @@
     <MESSAGE value="Sends Json error messages now." />
     <MESSAGE value="Added ComponentScan annotation and functionality" />
     <MESSAGE value="reformatting" />
-    <option name="LAST_COMMIT_MESSAGE" value="reformatting" />
+    <MESSAGE value="Moved the controller classes to a more appropriate package" />
+    <MESSAGE value="Remade the dependency injection container to be more like the real Spring.&#10;Also moved the controller control into its own class. Also now the mappers&#10;are thread safe." />
+    <MESSAGE value="Remade the dependency injection container to be more like the real Spring.&#10;Also moved the controller control into its own class." />
+    <option name="LAST_COMMIT_MESSAGE" value="Remade the dependency injection container to be more like the real Spring.&#10;Also moved the controller control into its own class." />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/Spring/BeanCreator.java</url>
+          <line>153</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/Spring/Web/DispatcherServlet.java</url>
+          <line>89</line>
+          <option name="timeStamp" value="11" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/Spring/Web/DispatcherServlet.java</url>
+          <line>110</line>
+          <option name="timeStamp" value="12" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/Spring/Web/DispatcherServlet.java</url>
+          <line>163</line>
+          <option name="timeStamp" value="13" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

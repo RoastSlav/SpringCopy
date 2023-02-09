@@ -13,7 +13,7 @@ public class ControllerManager {
     private final Map<String, ControllerRegistration> mappings = new HashMap<>();
     private final BeanCreator beanCreator = SpringApplication.applicationContext.getBeanCreator();
 
-    protected void loadControllers(Set<Class<?>> controllers) {
+    public void loadControllers(Set<Class<?>> controllers) {
         for (Class<?> controller : controllers) {
             ControllerRegistration registration = new ControllerRegistration();
 

@@ -32,10 +32,16 @@ class DepContainerLoader {
     }
 
     private void getPackagesToLoad(Class<?> mainClass) {
-        if (mainClass.isAnnotationPresent(ComponentScan.class)) {
-            ComponentScan componentScan = mainClass.getAnnotation(ComponentScan.class);
-            packagesToBeScanned.addAll(Arrays.stream(componentScan.value()).toList());
-        }
+        if (!mainClass.isAnnotationPresent(ComponentScan.class))
+            return;
+
+        ComponentScan componentScan = mainClass.getAnnotation(ComponentScan.class);
+        List<String> packages = Arrays.stream(componentScan.value()).toList();
+        packagesToBeScanned.stream().filter(packages::contains).forEach(packagesToBeScanned::remove);
+        packagesToBeScanned.addAll(packages);
+
+        if (!packagesToBeScanned.contains(mainClass.getPackageName()))
+            packagesToBeScanned.add(mainClass.getPackageName());
     }
 
     public void loadDependencies() throws Exception {
@@ -117,13 +123,10 @@ class DepContainerLoader {
         Configuration configuration = fac.getConfiguration();
         for (Class<?> mapper : mappers) {
             configuration.addMapper(mapper);
-            Object mock = Mockito.mock(mapper, (Answer<?>) invocation -> {
-                try (SqlSession session = fac.openSession()) {
-                    Object mapperInstance = session.getMapper(mapper);
-                    return invocation.getMethod().invoke(mapperInstance, invocation.getArguments());
-                }
-            });
-            context.registerBean(mapper, mock);
+            try (SqlSession session = fac.openSession()) {
+                Object mapperInstance = session.getMapper(mapper);
+                context.registerBean(mapper, mapperInstance);
+            }
         }
     }
 
