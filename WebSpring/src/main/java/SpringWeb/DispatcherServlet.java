@@ -94,12 +94,12 @@ public class DispatcherServlet extends HttpServlet implements Servlet, Initializ
         }
 
 
-        if (registration.isRest()) {
+        if (registration.isRest() || method.isAnnotationPresent(ResponseBody.class)) {
             resp.setContentType("application/json");
             resp.getWriter().write(gson.toJson(resultFromMethod));
             return;
         }
-        resp.getWriter().write(gson.toJson(resultFromMethod));
+        resp.getWriter().write(resultFromMethod.toString());
     }
 
     private Object[] getMethodParamValues(Method method, HttpServletRequest req, String pathAnnotationValue, List<String> path) {

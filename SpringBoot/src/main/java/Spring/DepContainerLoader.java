@@ -48,16 +48,25 @@ public class DepContainerLoader {
 
     public void loadDependencies() throws Exception {
         for (String packageToScan : packagesToBeScanned) {
+            loadProperties();
             loadMappers(packageToScan);
             loadConfigurations(packageToScan);
             loadComponents(packageToScan);
         }
     }
 
-    private SqlSessionFactory getSqlSessionFactory() throws IOException {
+    private void loadProperties() throws IOException, NoSuchBeanDefinitionException, BeansException {
         Properties properties = ResourceFileSearcher.getPropertiesFile();
+        context.registerBean(properties.getClass(), properties);
 
-        String mBatisResource = properties.getProperty("mb_resource");
+        Set<Map.Entry<Object, Object>> entries = properties.entrySet();
+        for (Map.Entry<Object, Object> entry : entries)
+            context.registerBean(entry.getKey().toString(), entry.getValue());
+    }
+
+    private SqlSessionFactory getSqlSessionFactory() throws IOException, NoSuchBeanDefinitionException, BeansException {
+        String mBatisResource = context.getBean("mb_resource", String.class);
+        Properties properties = (Properties) context.getBean(Properties.class);
         try (Reader reader = Resources.getResourceAsReader(mBatisResource)) {
             return new SqlSessionFactoryBuilder().build(reader, properties);
         }
@@ -107,20 +116,7 @@ public class DepContainerLoader {
         Set<Class<?>> configurations = getAnnotatedClasses(Spring.Anotations.Configuration.class, packageToScan);
         for (Class<?> config : configurations) {
             getPackagesToLoad(config);
-
-            Constructor<?> declaredConstructor = config.getDeclaredConstructor();
-            if (declaredConstructor.isAnnotationPresent(Bean.class)) {
-                Object instance = context.beanCreator.getInstance(config);
-                context.registerBean(config, instance);
-            }
-
-            Field[] declaredFields = config.getDeclaredFields();
-            for (Field field : declaredFields) {
-                if (field.isAnnotationPresent(Bean.class)) {
-                    Object instance = context.beanCreator.getInstance(field.getType());
-                    context.registerBean(field.getType(), instance);
-                }
-            }
+            loadBeansFromClass(config);
         }
     }
 
@@ -141,8 +137,52 @@ public class DepContainerLoader {
         Set<Class<?>> components = getAnnotatedClasses(Component.class, packageToScan);
         for (Class<?> component : components) {
             getPackagesToLoad(component);
-            context.registerImplementation(component);
+            context.beanCreator.getInstance(component);
+            context.registerBean(component, component);
+            loadBeansFromClass(component);
         }
+    }
+
+    private void loadBeansFromClass(Class<?> clazz) throws NoSuchBeanDefinitionException, BeansException, InvocationTargetException, IllegalAccessException, InstantiationException, NoSuchMethodException {
+        Method[] declaredMethods = clazz.getDeclaredMethods();
+        Object instance = context.beanCreator.getInstance(clazz);
+        for (Method method : declaredMethods) {
+            Parameter[] parameters = method.getParameters();
+            Object[] values = getParameterValues(parameters);
+
+            if (method.isAnnotationPresent(Bean.class)) {
+                Object invoke = method.invoke(instance, values);
+                context.registerBean(method.getReturnType(), invoke);
+            }
+        }
+
+        for (Constructor<?> constructor : clazz.getDeclaredConstructors()) {
+            Parameter[] parameters = constructor.getParameters();
+            Object[] values = getParameterValues(parameters);
+
+            if (constructor.isAnnotationPresent(Bean.class)) {
+                Object beanInstance = constructor.newInstance(values);
+                context.registerBean(clazz, beanInstance);
+            }
+
+        }
+
+        Constructor<?> constructor = clazz.getConstructor();
+        if (constructor.isAnnotationPresent(Bean.class)) {
+            Object beanInstance = constructor.newInstance();
+            context.registerBean(clazz, beanInstance);
+        }
+    }
+
+    private Object[] getParameterValues(Parameter[] parameters) throws NoSuchBeanDefinitionException, BeansException {
+        Object[] values = new Object[parameters.length];
+        for (int i = 0; i < parameters.length; i++) {
+            Class<?> type = parameters[i].getType();
+            values[i] = context.getBean(type);
+            if (values[i] == null)
+                values[i] = context.beanCreator.getInstance(type);
+        }
+        return values;
     }
 
     private static class MapperInvocationHandler implements InvocationHandler {

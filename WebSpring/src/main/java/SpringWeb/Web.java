@@ -1,6 +1,7 @@
 package SpringWeb;
 
 import Spring.Anotations.Autowired;
+import Spring.Anotations.Bean;
 import Spring.Anotations.Initializer;
 import Spring.Anotations.Named;
 import Spring.ApplicationContext;
@@ -31,6 +32,10 @@ public class Web implements Initializer {
     @Autowired
     @Named()
     List<String> packagesToBeScanned;
+
+    @Bean
+    public Web() {
+    }
 
     private static Tomcat setupTomcat() throws NoSuchBeanDefinitionException, BeansException {
         Tomcat tomcat = new Tomcat();

@@ -9,12 +9,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class HttpServletSpringResponse extends HttpServletResponseWrapper {
-    /**
-     * Constructs a response adaptor wrapping the given response.
-     *
-     * @param response The response to be wrapped
-     * @throws IllegalArgumentException if the response is null
-     */
     public HttpServletSpringResponse(HttpServletResponse response) {
         super(response);
     }
