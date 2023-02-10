@@ -4,13 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4c098ba1-35e7-4511-b324-67adb930ad86" name="Changes" comment="Separated WebSpring from SpringBoot">
-      <change afterPath="$PROJECT_DIR$/WebSpring/src/main/java/SpringWeb/Annotation/ResponseBody.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SpringBoot/src/main/java/Spring/DepContainerLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/SpringBoot/src/main/java/Spring/DepContainerLoader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebSpring/src/main/java/SpringWeb/DispatcherServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/WebSpring/src/main/java/SpringWeb/DispatcherServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebSpring/src/main/java/SpringWeb/HttpServletSpringResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/WebSpring/src/main/java/SpringWeb/HttpServletSpringResponse.java" afterDir="false" />
+    <list default="true" id="4c098ba1-35e7-4511-b324-67adb930ad86" name="Changes" comment="Added @ResponseBody, Now the properties are loaded into context">
       <change beforePath="$PROJECT_DIR$/WebSpring/src/main/java/SpringWeb/Web.java" beforeDir="false" afterPath="$PROJECT_DIR$/WebSpring/src/main/java/SpringWeb/Web.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -149,7 +143,7 @@
       <workItem from="1675840632701" duration="5368000" />
       <workItem from="1675865470720" duration="13208000" />
       <workItem from="1675957381544" duration="5451000" />
-      <workItem from="1675963005766" duration="9463000" />
+      <workItem from="1675963005766" duration="10451000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit">
       <created>1675357544247</created>
@@ -242,7 +236,14 @@
       <option name="project" value="LOCAL" />
       <updated>1675969243187</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Added @ResponseBody, Now the properties are loaded into context">
+      <created>1676012592080</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1676012592080</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -262,7 +263,8 @@
     <MESSAGE value="Fixed the mappers" />
     <MESSAGE value="Separated SpringBoot from WebSpring" />
     <MESSAGE value="Separated WebSpring from SpringBoot" />
-    <option name="LAST_COMMIT_MESSAGE" value="Separated WebSpring from SpringBoot" />
+    <MESSAGE value="Added @ResponseBody, Now the properties are loaded into context" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added @ResponseBody, Now the properties are loaded into context" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

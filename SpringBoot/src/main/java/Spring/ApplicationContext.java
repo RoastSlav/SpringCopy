@@ -3,7 +3,6 @@ package Spring;
 import Spring.Exceptions.BeansException;
 import Spring.Exceptions.NoSuchBeanDefinitionException;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -13,19 +12,9 @@ public class ApplicationContext {
     protected final Map<String, Object> singletons = new HashMap<>();
     protected final Map<Class<?>, Class<?>> implementations = new HashMap<>();
     protected final BeanCreator beanCreator = new BeanCreator(this);
-    private final LocalDate localDate = LocalDate.now();
-    private String ApplicationName;
 
     public BeanCreator getBeanCreator() {
         return beanCreator;
-    }
-
-    public String getApplicationName() {
-        return ApplicationName;
-    }
-
-    public LocalDate getLocalDate() {
-        return localDate;
     }
 
     public boolean containsBean(String beanName) {

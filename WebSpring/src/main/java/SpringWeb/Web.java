@@ -18,12 +18,12 @@ import org.apache.tomcat.util.descriptor.web.FilterMap;
 import javax.servlet.Servlet;
 import java.io.File;
 import java.util.List;
+import java.util.Properties;
 import java.util.Set;
 
 import static Spring.SpringApplication.applicationContext;
 
 public class Web implements Initializer {
-    private static final String PACKAGE_TO_SCAN = ""; //Scans all packages
     DispatcherServlet instance = new DispatcherServlet();
     @Autowired
     DepContainerLoader depContainerLoader;
@@ -37,9 +37,9 @@ public class Web implements Initializer {
     public Web() {
     }
 
-    private static Tomcat setupTomcat() throws NoSuchBeanDefinitionException, BeansException {
+    private Tomcat setupTomcat() throws NoSuchBeanDefinitionException, BeansException {
         Tomcat tomcat = new Tomcat();
-        tomcat.setPort(8080);
+        tomcat.setPort(Integer.parseInt(context.getBean("web.port", String.class)));
         String contextPath = "";
         String docBase = new File(".").getAbsolutePath();
 
